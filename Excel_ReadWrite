@@ -1,0 +1,72 @@
+package Automation;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class TestExcelReadWrite {
+
+	public static void main(String[] args) throws Exception {
+		
+
+		
+		String file_path="C:\\Users\\HQ333WW\\OneDrive - EY\\Desktop\\Automation Training\\Assignment\\TestData.xlsx";
+
+
+		     FileInputStream is = new FileInputStream(file_path);
+
+              try (XSSFWorkbook wb = new XSSFWorkbook(is)) {
+				XSSFSheet sheet = wb.getSheet("Regression");
+								  
+				  int row_count = sheet.getLastRowNum()-sheet.getFirstRowNum();
+				 
+				  
+				  for(int i = 0; i<=row_count; i++) {
+					  
+					  sheet.getRow(i).getFirstCellNum();
+					  
+					  sheet.getRow(i).getLastCellNum();
+					  
+					  int cell_count = sheet.getRow(i).getLastCellNum();
+					  
+					  System.out.println(" ");
+					  
+					  
+					  for(int j=0;j<cell_count;j++) {
+						  
+						  System.out.print(sheet.getRow(i).getCell(j).getStringCellValue());
+						  System.out.print("   ");
+						  
+						  
+					  }
+					  
+				  }
+				  
+				  XSSFSheet sheet1 = wb.getSheet("WriteData");
+						
+						XSSFRow row=sheet1.createRow(1);
+						
+						row.createCell(0).setCellValue("Diana");
+				        row.createCell(1).setCellValue("Jane");
+				        row.createCell(2).setCellValue("djanes@gmail.com");
+				        row.createCell(3).setCellValue("Female");
+				        row.createCell(4).setCellValue("8786858432");
+				        row.createCell(5).setCellValue("Park Lane, Flat C1 , New Jersey");
+				        
+				        FileOutputStream wr= new FileOutputStream(file_path);
+				        
+				        wb.write(wr);
+				        
+				        wb.close();
+				  
+				   
+        
+			}
+              
+             
+
+	}
+
+}
